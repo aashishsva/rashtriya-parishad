@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --parishad-blue: #1a3a8f;
+  --parishad-red: #c0282a;
+  --parishad-green: #2e7d32;
+  --parishad-gold: #d4a017;
+  --parishad-light: #f0f4ff;
+  --parishad-white: #ffffff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+    background-color: #f8f9fc;
+    color: #1a1a2e;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Noto Serif', 'Noto Serif Devanagari', serif;
+  }
+}
+
+@layer utilities {
+  .text-parishad-blue { color: var(--parishad-blue); }
+  .text-parishad-red { color: var(--parishad-red); }
+  .text-parishad-green { color: var(--parishad-green); }
+  .text-parishad-gold { color: var(--parishad-gold); }
+  .bg-parishad-blue { background-color: var(--parishad-blue); }
+  .bg-parishad-red { background-color: var(--parishad-red); }
+  .bg-parishad-green { background-color: var(--parishad-green); }
+  .bg-parishad-light { background-color: var(--parishad-light); }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #1a3a8f 0%, #1e4bb5 40%, #c0282a 100%);
+  }
+
+  .gradient-section {
+    background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 100%);
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(26, 58, 143, 0.15);
+  }
+
+  .ashoka-border {
+    border-image: linear-gradient(90deg, var(--parishad-blue), var(--parishad-red), var(--parishad-green)) 1;
+  }
+
+  .tricolor-bar {
+    background: linear-gradient(90deg, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%);
+    height: 4px;
+  }
+
+  .nav-link-active {
+    color: var(--parishad-red);
+    border-bottom: 2px solid var(--parishad-red);
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--parishad-blue), var(--parishad-red));
+    border-radius: 2px;
+    margin: 12px auto;
+  }
+}
+
+/* Add this inside @layer utilities in globals.css */
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  width: max-content;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
