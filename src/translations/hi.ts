@@ -563,6 +563,10 @@ const hi = {
     title: "हमारी गैलरी",
     more: "और देखें",
   },
+  pdf: {
+    title: "दस्तावेज़",
+    subtitle: "हमारा आधिकारिक दस्तावेज़ देखें",
+  },
 
   footer: {
     aboutText:

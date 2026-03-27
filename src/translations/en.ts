@@ -548,6 +548,12 @@ const en = {
     email: "Email",
     website: "Website",
   },
+  
+
+  pdf: {
+    title: "Document",
+    subtitle: "View our official document",
+  },
   footer: {
     aboutText:
       "Welcome to the National SC/ST Council. We aim to provide you with complete information about our organization and its capabilities.",
