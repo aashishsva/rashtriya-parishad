@@ -132,15 +132,16 @@ export default function GalleryPage() {
         </h1>
       </div>
 
-      {/* 🔘 TABS */}
-      <div className="bg-white py-6 sticky top-0 z-20 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-wrap gap-3 justify-center">
+      {/* 🔘 TABS (Updated for Mobile Swipe) */}
+      <div className="bg-white py-4 sticky top-0 z-20 shadow-sm border-b border-gray-100">
+        {/* Mobile me scroll, Desktop me center wrap */}
+        <div className="max-w-7xl mx-auto px-4 flex overflow-x-auto md:flex-wrap gap-3 md:justify-center items-center pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <button
             onClick={() => setActiveTab("all")}
-            className={`px-4 py-2 rounded-full border transition ${
+            className={`px-5 py-2 rounded-full border text-sm font-medium transition whitespace-nowrap flex-shrink-0 ${
               activeTab === "all"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-100"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-700 hover:bg-gray-50 border-gray-200"
             }`}
           >
             All
@@ -153,10 +154,10 @@ export default function GalleryPage() {
                 setActiveTab(cat.key);
                 setCurrentIndex(null);
               }}
-              className={`px-4 py-2 rounded-full border text-sm transition ${
+              className={`px-5 py-2 rounded-full border text-sm font-medium transition whitespace-nowrap flex-shrink-0 ${
                 activeTab === cat.key
-                  ? "bg-blue-600 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-gray-200"
               }`}
             >
               {cat.title}
@@ -166,24 +167,25 @@ export default function GalleryPage() {
       </div>
 
       {/* 🔥 GRID */}
-      <section className="py-16 bg-[#f8f9fc]">
+      <section className="py-12 bg-[#f8f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           {activeImages.length === 0 ? (
-            <p className="text-center text-gray-500">
+            <p className="text-center text-gray-500 py-10">
               No images available
             </p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {activeImages.map((img, i) => (
                 <div
                   key={i}
                   onClick={() => setCurrentIndex(i)}
                   className="cursor-pointer group"
                 >
-                  <div className="aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-md hover:shadow-xl transition">
+                  <div className="aspect-square overflow-hidden rounded-xl bg-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
                     <img
                       src={img}
-                      className="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                 </div>
@@ -195,29 +197,38 @@ export default function GalleryPage() {
 
       {/* 🔥 POPUP */}
       {currentIndex !== null && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center backdrop-blur-sm">
           <button
             onClick={() => setCurrentIndex(null)}
-            className="absolute top-5 right-5 text-white text-3xl"
+            className="absolute top-4 right-4 text-white/70 hover:text-white text-3xl p-2 z-50"
           >
             ✕
           </button>
 
           <button
-            onClick={prev}
-            className="absolute left-5 text-white text-4xl"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            className="absolute left-2 sm:left-5 text-white/70 hover:text-white text-5xl p-2 z-50"
           >
             ‹
           </button>
 
-          <img
-            src={activeImages[currentIndex]}
-            className="max-h-[80vh] max-w-[90%] object-contain"
-          />
+          <div className="w-full h-full flex items-center justify-center p-4" onClick={() => setCurrentIndex(null)}>
+            <img
+              src={activeImages[currentIndex]}
+              className="max-h-[85vh] max-w-full object-contain drop-shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
 
           <button
-            onClick={next}
-            className="absolute right-5 text-white text-4xl"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            className="absolute right-2 sm:right-5 text-white/70 hover:text-white text-5xl p-2 z-50"
           >
             ›
           </button>
