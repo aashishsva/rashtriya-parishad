@@ -18,7 +18,7 @@ export default function HomeContent() {
       <PdfViewerSection />
       <AboutSection />
       {/* <CalendarSection /> */}
-      <LeadersSection />
+      {/* <LeadersSection /> */}
       <GallerySection />
       <VideoSection />
       {/* <CtaSection /> */}

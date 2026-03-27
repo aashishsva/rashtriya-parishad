@@ -130,63 +130,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 🔹 STATE LEADERS SECTION - PREMIUM OVERLAY DESIGN */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1a3a8f] inline-block relative">
-              {t.stateLeaders?.title || "हमारे राज्य अध्यक्ष"}
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1.5 bg-[#c0282a] rounded-full"></div>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {t.stateLeaders?.list.map((leader: any, i: number) => (
-              <div 
-                key={i} 
-                className="group relative overflow-hidden rounded-2xl shadow-lg aspect-[3/4] cursor-pointer"
-              >
-                {/* 1. Full Cover Image */}
-                <img
-                  src={leader.photo}
-                  alt={leader.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=' + leader.name + '&background=eef2ff&color=1a3a8f&size=512&bold=true';
-                  }}
-                />
-
-                {/* 2. Dark Gradient Overlay (Bottom to Top) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-[#0a192f]/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                {/* 3. Top Red Accent Line on Hover */}
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-[#c0282a] transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-
-                {/* 4. Text Content (Absolute at bottom) */}
-                <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end transform transition-transform duration-300 group-hover:-translate-y-2">
-                  
-                  {/* State Badge */}
-                  <span className="inline-block px-3 py-1 bg-[#c0282a] text-white text-[11px] font-bold uppercase tracking-wider rounded-md w-max mb-3 shadow-md border border-red-500/30">
-                    {leader.state}
-                  </span>
-                  
-                  {/* Name */}
-                  <h3 className="text-xl font-bold text-white mb-1 drop-shadow-md group-hover:text-yellow-400 transition-colors">
-                    {leader.name}
-                  </h3>
-                  
-                  {/* Role */}
-                  <p className="text-gray-300 text-sm font-medium flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                    {leader.role}
-                  </p>
-                  
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* 🔹 LIMITATIONS */}
       <section className="py-16 bg-gray-50">

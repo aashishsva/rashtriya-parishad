@@ -9,6 +9,10 @@ const en = {
     ourGallery: "Our Gallery",
     ourVideos: "Our Videos",
     annualCalendar: "Annual Calendar",
+    // Ye missing keys add karein:
+    executiveList: "Executive List",
+    statePresidents: "State Presidents",
+    leadership: "Our Leadership",
   },
   hero: {
     tagline: "Jai Bhim · Jai Samvidhan · Jai Mulanivasi",
@@ -548,7 +552,6 @@ const en = {
     email: "Email",
     website: "Website",
   },
-  
 
   pdf: {
     title: "Document",

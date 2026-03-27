@@ -1,85 +1,70 @@
 "use client";
-
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function LeadersSection() {
   const { t } = useLanguage();
-  // Agar TypeScript abhi bhi leader type maange, toh bas any ya proper type assign karein
   const leaders = t.leaders.list;
 
   return (
-    <section className="py-20 bg-[#f8f9fc]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <p className="text-sm font-semibold text-[#c0282a] uppercase tracking-widest mb-2">
-            नेतृत्व
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a2e]">
-            {t.leaders.title}
-          </h2>
-          <div className="section-divider mt-4" />
-        </div>
+    <div className="pt-20 bg-[#f8f9fc]">
+      
+      {/* EXACT IMAGE STYLE HEADER */}
+      <div 
+        className="relative py-16 md:py-24 flex flex-col items-center justify-center text-center px-4"
+        style={{
+          background: "linear-gradient(90deg, #1a3a8f 0%, #136a5a 50%, #2e7d32 100%)"
+        }}
+      >
+        <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-2">
+          {t.leaders.title}
+        </h1>
+        <p className="text-white/90 text-sm md:text-lg font-medium tracking-[0.2em] uppercase">
+          नेतृत्व मंडल
+        </p>
+      </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {leaders.map((leader: any, i: number) => (
             <div
               key={i}
-              className="card-hover rounded-2xl overflow-hidden border-2 transition-all flex flex-col border-gray-100 bg-white shadow-sm"
+              className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
-              {/* Photo */}
-              <div className="relative w-full aspect-square bg-gray-50">
+              {/* Photo Area */}
+              <div className="relative w-full aspect-[4/5] bg-gray-50 overflow-hidden">
                 {leader.photo ? (
                   <Image
                     src={leader.photo}
                     alt={leader.name}
                     fill
-                    className="object-contain object-top"
-                    sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                    className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a3a8f]/8 to-[#1a3a8f]/3">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold border-2 bg-[#1a3a8f]/10 border-[#1a3a8f]/20 text-[#1a3a8f]">
-                      {leader.name
-                        .replace(/श्री |मा\. |डॉ\. |Mr\. |Shri /g, "")
-                        .trim()
-                        .split(" ")
-                        .slice(0, 2)
-                        .map((w: string) => w[0])
-                        .join("")}
-                    </div>
+                  <div className="w-full h-full flex items-center justify-center bg-blue-50 text-[#1a3a8f] text-4xl font-bold">
+                    {leader.name.charAt(0)}
                   </div>
                 )}
+                {/* Gradient Overlay on image hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a8f]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
-              {/* Name + Details */}
-              <div className="p-4 flex-1 bg-white">
-                {/* Name */}
-                <h3 className="font-bold text-sm leading-snug mb-1 text-[#1a1a2e]">
+              {/* Text Area */}
+              <div className="p-5 text-center flex-1 flex flex-col justify-center">
+                <h3 className="font-extrabold text-gray-900 text-sm md:text-lg leading-tight mb-1">
                   {leader.name}
                 </h3>
-
-                {/* Position */}
-                <p className="text-xs font-semibold text-[#1a3a8f]">
+                <p className="text-xs md:text-sm font-bold text-orange-600 mb-2">
                   {leader.position}
                 </p>
-
-                {/* Extra */}
-                {leader.extra && (
-                  <p className="text-[11px] text-gray-500">
-                    {leader.extra}
-                  </p>
-                )}
-
-                {/* Organization */}
-                <p className="text-[10px] mt-1 leading-tight text-gray-400">
+                <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest mt-auto">
                   {leader.org}
                 </p>
               </div>
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

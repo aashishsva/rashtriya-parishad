@@ -10,6 +10,10 @@ const hi = {
     ourGallery: "हमारी गैलरी",
     ourVideos: "हमारे वीडियो",
     annualCalendar: "वार्षिक कैलेंडर",
+    // Ye missing keys add karein:
+    executiveList: "राष्ट्रीय कार्यकारिणी सूची",
+    statePresidents: "प्रदेशाध्यक्ष",
+    leadership: "हमारा नेतृत्व",
   },
 
   // Hero

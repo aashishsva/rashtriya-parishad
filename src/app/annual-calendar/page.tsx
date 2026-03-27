@@ -1,117 +1,102 @@
 "use client";
 
+import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AnnualCalendarPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
-  const events = [
-    {
-      date: "26 जनवरी",
-      title: "गणतंत्र दिवस",
-      desc: "संविधान की उद्देशिका का वाचन एवं विचार गोष्ठी का आयोजन",
-    },
-    {
-      date: "8 मार्च",
-      title: "अंतरराष्ट्रीय महिला दिवस",
-      desc: "महिलाओं का सम्मान समारोह",
-    },
-    {
-      date: "14 अप्रैल",
-      title: "डॉ. अम्बेडकर जयंती",
-      desc: "वाहन रैली एवं प्रतिभा सम्मान समारोह",
-    },
-    {
-      date: "5 जून",
-      title: "विश्व पर्यावरण दिवस",
-      desc: "पंछी बचाओ अभियान एवं वृक्षारोपण कार्यक्रम",
-    },
-    {
-      date: "26 नवम्बर",
-      title: "संविधान दिवस",
-      desc: "स्थापना दिवस व जिला/प्रदेश स्तरीय कार्यशाला",
-    },
-    {
-      date: "3 दिसम्बर",
-      title: "विश्व विकलांगता दिवस",
-      desc: "दिव्यांगों को उपकरण वितरण",
-    },
-    {
-      date: "6 दिसम्बर",
-      title: "परिनिर्माण दिवस",
-      desc: "बाबा साहब के परिनिर्माण दिवस पर कैडर कैंप",
-    },
-  ];
+  // Translations file (hi.ts/en.ts) se data utha rha hai
+  const calendarEvents = t.calendar.events;
 
   return (
-    <div className="pt-20">
-
-      {/* HERO */}
-      <div className="py-20 bg-gradient-to-r from-[#1a3a8f] to-[#2e7d32] text-center">
-        <h1 className="text-4xl font-bold text-white">
-          वार्षिक कैलेंडर
+    <div className="pt-20 bg-[#f8f9fc]">
+      
+      {/* EXACT IMAGE STYLE HEADER - Blue to Green Gradient */}
+      <div 
+        className="relative py-16 md:py-24 flex flex-col items-center justify-center text-center px-4"
+        style={{
+          background: "linear-gradient(90deg, #1a3a8f 0%, #136a5a 50%, #2e7d32 100%)",
+          borderTop: "4px solid #0d1b4b" 
+        }}
+      >
+        <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-2">
+          {t.calendar.title}
         </h1>
-        <p className="text-white/70 mt-2">
-          संगठन के वार्षिक कार्यक्रम
+        <p className="text-white/90 text-sm md:text-lg font-medium tracking-[0.2em] uppercase">
+          {lang === "en" ? "Organization Yearly Schedule" : "संगठन की वार्षिक समय-सारणी"}
         </p>
       </div>
 
-      {/* CONTENT */}
-      <section className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-4">
-
-          {/* Heading */}
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-[#1a1a2e]">
-              वार्षिक कार्यक्रम सूची
-            </h2>
-            <div className="w-16 h-1 bg-[#c0282a] mx-auto mt-3 rounded-full" />
-          </div>
-
-          {/* Table */}
-          <div className="overflow-x-auto border border-gray-200 rounded-xl">
-            <table className="w-full text-sm">
-
-              <thead className="bg-[#f1f5ff]">
-                <tr className="text-left">
-                  <th className="p-3 font-semibold text-[#1a3a8f]">क्र.</th>
-                  <th className="p-3 font-semibold text-[#1a3a8f]">दिनांक</th>
-                  <th className="p-3 font-semibold text-[#1a3a8f]">कार्यक्रम</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {events.map((item, i) => (
-                  <tr
-                    key={i}
-                    className="border-t hover:bg-gray-50 transition"
-                  >
-                    <td className="p-3">{i + 1}</td>
-                    <td className="p-3 font-semibold text-[#c0282a]">
-                      {item.date}
-                    </td>
-                    <td className="p-3">
-                      <p className="font-semibold text-[#1a1a2e]">
-                        {item.title}
-                      </p>
-                      <p className="text-gray-500 text-xs mt-1">
-                        {item.desc}
-                      </p>
-                    </td>
+      {/* CONTENT SECTION */}
+      <section className="py-12 md:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          
+          {/* Table Container */}
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#1a3a8f] text-white">
+                    <th className="py-5 px-6 font-bold text-center w-20">
+                      {lang === "en" ? "S.No." : "क्र."}
+                    </th>
+                    <th className="py-5 px-6 font-bold min-w-[150px]">
+                      {lang === "en" ? "Date" : "दिनांक"}
+                    </th>
+                    <th className="py-5 px-6 font-bold">
+                      {lang === "en" ? "Programme Details" : "कार्यक्रम का विवरण"}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-
-            </table>
+                </thead>
+                <tbody className="text-gray-700">
+                  {calendarEvents.map((item: any, i: number) => (
+                    <tr 
+                      key={i} 
+                      className={`border-b border-gray-50 hover:bg-blue-50/50 transition-colors duration-150 ${
+                        i % 2 === 0 ? "bg-white" : "bg-gray-50/30"
+                      }`}
+                    >
+                      <td className="py-5 px-6 text-center font-bold text-gray-400">
+                        {i + 1}
+                      </td>
+                      <td className="py-5 px-6 font-black text-[#c0282a] text-lg">
+                        {item.date}
+                      </td>
+                      <td className="py-5 px-6">
+                        <p className="font-extrabold text-gray-900 text-base md:text-lg leading-tight mb-1">
+                          {item.event}
+                        </p>
+                        {/* Note: Agar desc alag se chahiye ho toh yahan handle kar sakte hain */}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          {/* Note */}
-          <p className="text-gray-500 text-sm mt-6 text-center">
-            नोट: समय-समय पर तात्कालिक विषयों पर धरना, प्रदर्शन एवं ज्ञापन दिया जाता है।
-          </p>
+          {/* Bottom Note */}
+          <div className="mt-10 p-6 bg-orange-50 border-l-4 border-orange-500 rounded-r-2xl">
+            <p className="text-gray-700 font-medium text-sm md:text-base italic">
+              <span className="font-bold text-orange-600 uppercase mr-2">
+                {lang === "en" ? "Note:" : "नोट:"}
+              </span>
+              {lang === "en" 
+                ? "Demonstrations, protests, and memorandums are organized from time to time on immediate issues."
+                : "समय-समय पर तात्कालिक विषयों पर धरना, प्रदर्शन एवं ज्ञापन दिया जाता है।"}
+            </p>
+          </div>
 
         </div>
       </section>
+
+      {/* Tricolor Strip at Bottom */}
+      <div className="h-2 w-full flex">
+        <div className="flex-1 bg-orange-500" />
+        <div className="flex-1 bg-white" />
+        <div className="flex-1 bg-green-600" />
+      </div>
     </div>
   );
 }
