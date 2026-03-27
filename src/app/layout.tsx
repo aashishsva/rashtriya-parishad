@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   title: "राष्ट्रीय अनुसूचित जाति-जनजाति विकास परिषद्",
   description:
     "National Scheduled Castes-Tribes Development Council of India — Working for the welfare and development of SC/ST communities since 1977.",
-  keywords: ["SC ST", "Scheduled Caste", "Scheduled Tribe", "Parishad", "Mangariya"],
+  keywords: [
+    "SC ST",
+    "Scheduled Caste",
+    "Scheduled Tribe",
+    "Parishad",
+    "Mangariya",
+  ],
 };
 
 export default function RootLayout({
@@ -20,7 +26,11 @@ export default function RootLayout({
     <html lang="hi" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap"
           rel="stylesheet"
