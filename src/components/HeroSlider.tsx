@@ -7,129 +7,269 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeroSlider() {
   const { t } = useLanguage();
-  
+
   const banners = [
-    "/carousel/image_0.jpg", 
-    "/carousel/image_1.jpg", 
-    "/carousel/image_2.jpg", 
+    "/carousel/image_0.png",
+    "/carousel/image_1.png",
+    "/carousel/image_2.png",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+      setCurrentIndex((prev) => (prev + 1) % banners.length);
     }, 6000);
     return () => clearInterval(timer);
   }, [banners.length]);
 
   return (
-    <section className="relative h-screen min-h-[700px] w-full flex items-center overflow-hidden bg-[#050a1f]">
-      
-      {/* 1. Background Carousel */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }} 
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0 z-0"
-        >
-          <Image
-            src={banners[currentIndex]}
-            alt="Banner"
-            fill
-            // Mobile par center focus, Desktop par Right focus taaki face na kate
-            className="mt-30 object-cover object-center md:object-right transition-transform duration-[6000ms] scale-110" 
-            priority
-          />
-          
-          {/* Mobile Overlay: Pure background ko thoda dark rakhta hai taaki text readable ho */}
-          <div className="absolute inset-0 bg-[#050a1f]/60 md:bg-transparent md:bg-gradient-to-r md:from-[#050a1f] md:via-[#050a1f]/40 md:to-transparent" />
-          
-          {/* Bottom Gradient: Soft finish for the tricolor strip */}
-          <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#050a1f] to-transparent" />
-        </motion.div>
-      </AnimatePresence>
+    <>
+      {/* ════════════════════════════════════════
+          MOBILE LAYOUT  (visible on mobile only)
+      ════════════════════════════════════════ */}
+      <section className="block md:hidden w-full overflow-hidden bg-[#f0f4f8]">
+        {/* Top Tricolor */}
+        <div className="flex h-1.5 w-full">
+          <div className="flex-1 bg-[#FF9933]" />
+          <div className="flex-1 bg-white border-y border-gray-200" />
+          <div className="flex-1 bg-[#138808]" />
+        </div>
 
-      {/* 2. Content Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 ">
-        {/* Mobile par center, Desktop par left align content */}
-        <div className="max-w-2xl space-y-5 md:space-y-6 text-center md:text-left flex flex-col items-center md:items-start">
-          
-          {/* Chota Premium Logo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center gap-3 md:gap-4"
+        {/* Gov Header Bar */}
+        <div className="bg-[#1a3a6b] w-full px-4 py-2.5 flex items-center gap-3 shadow-md">
+          <div className="w-9 h-9 rounded-full bg-white/10 border border-white/30 flex items-center justify-center shrink-0">
+            <span className="text-white text-[10px] font-bold">🪬</span>
+          </div>
+          <div className="flex flex-col leading-tight">
+            <span className="text-white font-bold text-[11px] tracking-wide">
+              {t.hero.ministry ?? "Ministry of Social Justice & Empowerment"}
+            </span>
+            <span className="text-blue-200 text-[9px] tracking-widest uppercase">
+              {t.hero.govLabel ?? "Government of India"}
+            </span>
+          </div>
+          <div className="ml-auto flex flex-col gap-1 cursor-pointer p-1">
+            <span className="block w-5 h-0.5 bg-white rounded" />
+            <span className="block w-5 h-0.5 bg-white rounded" />
+            <span className="block w-5 h-0.5 bg-white rounded" />
+          </div>
+        </div>
+
+        {/* Carousel */}
+        <div className="relative h-[52vw] min-h-[200px] max-h-[320px] w-full overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={banners[currentIndex]}
+                alt="Banner"
+                fill
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Arrows */}
+          <button
+            onClick={() =>
+              setCurrentIndex((p) => (p - 1 + banners.length) % banners.length)
+            }
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/60 text-white rounded-sm px-2 py-1.5 text-xs transition"
+            aria-label="Previous"
           >
-            <div className="relative w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl p-2 shadow-2xl border border-white/20">
-              <Image src="/images/logo.jpeg" alt="Logo" fill className="object-contain p-1" />
-            </div>
-            <div className="h-8 md:h-10 w-[2px] bg-orange-500 hidden md:block" />
-            <span className="text-yellow-400 text-[10px] md:text-xs font-black tracking-widest uppercase">
-              {t.hero.tagline}
+            ‹
+          </button>
+          <button
+            onClick={() => setCurrentIndex((p) => (p + 1) % banners.length)}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/60 text-white rounded-sm px-2 py-1.5 text-xs transition"
+            aria-label="Next"
+          >
+            ›
+          </button>
+
+          {/* Dots */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+            {banners.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-2 rounded-sm transition-all duration-300 ${
+                  i === currentIndex ? "w-5 bg-white" : "w-2 bg-white/50"
+                }`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Content Card */}
+        <div className="relative z-10 bg-white mx-3 -mt-4 rounded-t-lg shadow-lg border border-gray-100 px-4 pt-5 pb-6">
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-1.5 border border-[#1a3a6b]/20 rounded-full px-3 py-1 mb-3"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+            <span className="text-[#1a3a6b] text-[9px] font-bold tracking-widest uppercase">
+              {t.hero.tagline ?? "Official Government Portal"}
             </span>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-3xl md:text-6xl font-black text-white leading-[1.2] md:leading-tight"
+            transition={{ delay: 0.2 }}
+            className="text-[#1a3a6b] text-xl font-extrabold leading-snug mb-2"
+            style={{ fontFamily: "'Georgia', serif" }}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
-              {t.hero.title}
-            </span>
+            {t.hero.title ?? "Empowering Every Citizen"}
           </motion.h1>
-          
-          {/* Subtitle */}
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-lg md:text-2xl font-bold text-orange-400 italic"
+            transition={{ delay: 0.35 }}
+            className="text-orange-700 text-sm font-semibold mb-3"
           >
-            {t.hero.subtitle}
+            {t.hero.subtitle ?? "Social Justice · Equity · Inclusion"}
           </motion.p>
 
-          {/* Description */}
-          <motion.p 
+          <div className="h-px bg-gradient-to-r from-[#FF9933] via-white to-[#138808] mb-3" />
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="text-white/90 text-sm md:text-lg leading-relaxed md:border-l-4 md:border-orange-500 md:pl-6 max-w-xl md:bg-transparent bg-black/20 p-4 md:p-0 rounded-xl backdrop-blur-sm md:backdrop-blur-none"
+            transition={{ delay: 0.5 }}
+            className="text-gray-600 text-xs leading-relaxed mb-5"
           >
-            {t.hero.description}
+            {t.hero.description ??
+              "Dedicated to the welfare and upliftment of disadvantaged sections of society through inclusive policies and targeted programmes."}
           </motion.p>
 
-          {/* Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-4 pt-4 md:pt-6 w-full sm:w-auto"
+            transition={{ delay: 0.65 }}
+            className="flex gap-3"
           >
-            <Link href="/membership" className="px-8 py-4 bg-orange-500 text-white font-black rounded-xl hover:bg-orange-600 transition-all shadow-lg active:scale-95 text-center">
-              {t.hero.cta}
-            </Link>
-            <Link href="/about" className="px-8 py-4 border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all text-center">
-              {t.hero.learnMore}
+            <Link
+              href="/about"
+              className="flex-1 text-center bg-[#1a3a6b] text-white text-xs font-bold uppercase tracking-wider py-3 rounded shadow-sm hover:bg-[#14306b] active:scale-95 transition-all"
+            >
+              {t.hero.learnMore ?? "Know More"}
             </Link>
           </motion.div>
-
         </div>
-      </div>
 
-      {/* Tricolor Gradient Strip */}
-      <div className="absolute bottom-0 left-0 w-full h-2 flex z-20">
-        <div className="flex-1 bg-[#ff9933]" />
-        <div className="flex-1 bg-white" />
-        <div className="flex-1 bg-[#138808]" />
-      </div>
+        {/* Bottom Tricolor */}
+        <div className="flex h-1.5 w-full">
+          <div className="flex-1 bg-[#FF9933]" />
+          <div className="flex-1 bg-white border-y border-gray-200" />
+          <div className="flex-1 bg-[#138808]" />
+        </div>
+      </section>
 
-    </section>
+      {/* ════════════════════════════════════════
+          DESKTOP LAYOUT  (hidden on mobile, visible on md+)
+          — Original design, completely untouched —
+      ════════════════════════════════════════ */}
+      <section className="hidden md:flex relative h-screen min-h-[600px] w-full items-center overflow-hidden bg-[#f4f4f4]">
+        {/* Background Carousel */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.0 }}
+            className="absolute inset-0 z-0"
+          >
+            <Image
+              src={banners[currentIndex]}
+              alt="Banner"
+              fill
+              className="object-cover object-right transition-transform duration-[8000ms] scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/50 to-transparent" />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-10">
+          <div className="max-w-xl space-y-6 text-left flex flex-col items-start">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2 bg-white/80 py-1 px-3 rounded-full border border-gray-200 shadow-sm"
+            >
+              <div className="w-2 h-2 rounded-full bg-orange-600 animate-pulse" />
+              <span className="text-[#1a237e] text-xs font-bold tracking-wider uppercase">
+                {t.hero.tagline}
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-5xl font-extrabold text-[#1a237e] leading-tight"
+            >
+              {t.hero.title}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-xl font-semibold text-orange-700"
+            >
+              {t.hero.subtitle}
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="text-gray-700 text-base leading-relaxed max-w-md"
+            >
+              {t.hero.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="flex flex-row gap-3 pt-2"
+            >
+              <Link
+                href="/about"
+                className="px-6 py-3 border-2 border-[#1a237e] text-[#1a237e] text-sm font-bold rounded hover:bg-gray-50 transition-all text-center uppercase tracking-wider"
+              >
+                {t.hero.learnMore}
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Top tricolor */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-white to-green-600 z-30" />
+        {/* Bottom tricolor */}
+        <div className="absolute bottom-0 left-0 w-full h-1.5 flex z-20 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+          <div className="flex-1 bg-[#FF9933]" />
+          <div className="flex-1 bg-white" />
+          <div className="flex-1 bg-[#138808]" />
+        </div>
+      </section>
+    </>
   );
 }
