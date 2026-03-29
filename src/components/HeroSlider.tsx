@@ -42,12 +42,6 @@ export default function HeroSlider() {
             <span className="text-white text-[10px] font-bold">🪬</span>
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-white font-bold text-[11px] tracking-wide">
-              {t.hero.ministry ?? "Ministry of Social Justice & Empowerment"}
-            </span>
-            <span className="text-blue-200 text-[9px] tracking-widest uppercase">
-              {t.hero.govLabel ?? "Government of India"}
-            </span>
           </div>
           <div className="ml-auto flex flex-col gap-1 cursor-pointer p-1">
             <span className="block w-5 h-0.5 bg-white rounded" />
@@ -197,7 +191,7 @@ export default function HeroSlider() {
               src={banners[currentIndex]}
               alt="Banner"
               fill
-              className="object-cover object-right transition-transform duration-[8000ms] scale-105"
+              className="object-contain mt-10  object-right transition-transform duration-[8000ms] scale-105"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/50 to-transparent" />
